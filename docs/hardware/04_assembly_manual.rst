@@ -74,7 +74,7 @@ Speaker Cables
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/lukhqvumUzQ" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -103,7 +103,7 @@ Waist Assembly
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/oJEtc8Vn6mM" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -118,7 +118,7 @@ Torso Assembly
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/hHZQepIfq6o" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -148,7 +148,7 @@ Wiring
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/gDMCFXmWQb8" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -163,7 +163,7 @@ Power Board
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/C4dC8QYalOA" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -185,7 +185,7 @@ Jetson Power Cable
     </div>
 
 
-Power Supply Cables
+Power Supply Cable
 ---------------------------------------
 
 .. raw:: html
@@ -193,7 +193,7 @@ Power Supply Cables
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/A5iL168LYlc" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
