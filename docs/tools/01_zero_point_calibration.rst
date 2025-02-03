@@ -11,8 +11,8 @@ But there are some details that we would like to further elaborate on in this se
 becomes vert quick once you're familiar with it.
 
 #. To start with, you need to 3D-print the calibration devices. You can find all the sliced plates for calibration devices in the 
-   `MakerWorld <TODO>`_. 
-   and the CAD files in the `Onshape document <https://cad.onshape.com/documents/1370cb70ae00945ee5a1ab36/w/85acc7b52cedd4ba2555673b/e/17c137b0672e3543d7aeafe2>`_.
+   `MakerWorld <https://makerworld.com/en/models/1068768>`_. 
+   and the CAD files in the `Onshape document <https://cad.onshape.com/documents/1370cb70ae00945ee5a1ab36>`_.
    
 #. When inserting the calibration devices, you may encounter friction due to the tight fit. Once secured, they should click into place, locking the joints. 
    If the joints still move, check for obstructing cables or incorrect insertion.

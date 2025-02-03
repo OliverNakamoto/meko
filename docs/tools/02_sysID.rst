@@ -7,8 +7,14 @@ This section provides a comprehensive guide to perform system identification (Sy
 
 Hardware Setup
 ---------------------------------------------
-TODO
+You will need to purchase the sysID section in the :ref:`bill_of_materials`.
 
+For 3D-printed parts, you can find all the sliced plates in the `MakerWorld <https://makerworld.com/en/models/1068768>`_ 
+and the CAD files in the `Onshape document <https://cad.onshape.com/documents/1370cb70ae00945ee5a1ab36>`_.
+
+We use 21700 cells as loads to adjust the motor load weight.
+
+TODO: Add the image of the sysID setup.
 
 SysID Data Collection
 ---------------------------------------------
@@ -17,7 +23,7 @@ TODO
 Set up Optuna Dashboard
 ---------------------------------------------
 
-For the SysID Optimization tool, you need to install the following packages:
+To visualize the sysID optimization process, you need to install the following packages:
 
 .. tabs::
 

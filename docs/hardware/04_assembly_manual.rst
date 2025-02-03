@@ -7,12 +7,12 @@ To ensure a smooth and enjoyable assembly session, we provide three types of res
 
 #. **Assembly Manual**: A detailed step-by-step guide to help you through the assembly process.
 #. **Assembly Video**: Videos that walk you through the assembly process.
-#. **OnShape**: The `online CAD document <https://cad.onshape.com/documents/ff1e767f256dd9c8abf2206a/w/1279ebbeb00aff2fc147aa43/e/c34cebff72a1144191e86b88>`_ for your reference.
+#. **Onshape**: The `online CAD document <https://cad.onshape.com/documents/ff1e767f256dd9c8abf2206a>`_ for your reference.
 
 The recommended assembly order follows the sequence of the sections below.
 
 Please make sure that you **read the assembly manual carefully** before start building. 
-If you're unsure about any step, refer to the assembly video, Sketchfab model, or OnShape document for guidance.
+If you're unsure about any step, refer to the assembly video or Onshape document for guidance.
 
 Still need help after looking at all of these? Open a GitHub issue, and we'll be happy to assist! 
 
@@ -31,7 +31,7 @@ Arm Assembly
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/cLyQGequdus" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -46,7 +46,7 @@ Leg Assembly
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/CpApU0rNKCc" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -60,7 +60,7 @@ Camera Cables
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/cOozweZMdp0" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -88,7 +88,7 @@ Head Assembly
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/ob5-xaak39A" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -133,7 +133,7 @@ ID the Motors
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/TzLYerlbR0U" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -170,7 +170,7 @@ Power Board
     </div>
 
 
-Jetson Power Cable
+Jetson Power Cables
 ---------------------------------------
 
 .. raw:: html
@@ -178,14 +178,14 @@ Jetson Power Cable
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/Nx4PPYQrci8" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
     </div>
 
 
-Power Supply Cable
+Power Supply Cables
 ---------------------------------------
 
 .. raw:: html
@@ -208,7 +208,7 @@ Standing Test
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/74AlML-zECM" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>
@@ -217,13 +217,14 @@ Standing Test
 
 (Optional) Parallel Jaw Gripper
 ---------------------------------
+TODO
 
 .. raw:: html
 
     <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <!-- Left Column: YouTube Video -->
         <div style="flex: 1;">
-            <iframe width="100%" height="400" src="https://www.youtube.com/embed/F5B1QpU0Evo?si=BIskkx0BLHmeJcUj" 
+            <iframe width="100%" height="400" src="" 
                 title="YouTube video player" frameborder="0" allowfullscreen>
             </iframe>
         </div>

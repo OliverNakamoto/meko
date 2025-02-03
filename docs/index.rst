@@ -14,7 +14,9 @@ If you want to know more about ToddlerBot, here are some useful links:
 `Website <https://toddlerbot.github.io/>`__  |  
 `Video <https://youtu.be/A43QxHSgLyM>`__  |  
 `Code <https://github.com/hshi74/toddlerbot>`__  |  
-`Tweet <https://twitter.com/your-tweet>`__
+`Tweet <https://twitter.com/your-tweet>`__ | 
+`Onshape <https://cad.onshape.com/documents/ff1e767f256dd9c8abf2206a>`__ |
+`MakerWorld <https://makerworld.com/en/models/1068768>`__
 
 Getting Started
 ------------------------
