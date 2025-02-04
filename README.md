@@ -2,10 +2,10 @@
 
 ![ToddlerBot](docs/_static/banner.png)
 
-**[Paper](https://arxiv.org/abs/YOUR_PAPER_ID)** |
+**[Paper](https://arxiv.org/abs/2502.00893)** |
 **[Website](https://toddlerbot.github.io/)** |
 **[Video](https://youtu.be/A43QxHSgLyM)** | 
-**[Tweet](https://twitter.com/YOUR_TWEET)** |
+**[Tweet](https://x.com/HaochenShi74/status/1886599720279400732)** |
 **[Documentation](https://hshi74.github.io/toddlerbot)** |
 **[Onshape](https://cad.onshape.com/documents/ff1e767f256dd9c8abf2206a)** |
 **[MakerWorld](https://makerworld.com/en/models/1068768)**
