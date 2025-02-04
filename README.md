@@ -78,7 +78,12 @@ We welcome contributions from the community! To contribute, just follow the stan
 ## Citation
 If you use ToddlerBot for published research, please cite:
 ```
-
+@article{shi2025toddlerbot,
+  title={ToddlerBot: Open-Source ML-Compatible Humanoid Platform for Loco-Manipulation},
+  author={Shi, Haochen and Wang, Weizhuo and Song, Shuran and Liu, C. Karen},
+  journal={arXiv preprint arXiv:2502.00893},
+  year={2025}
+}
 ```
 
 ## License  
