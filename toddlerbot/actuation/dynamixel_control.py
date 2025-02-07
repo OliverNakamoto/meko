@@ -159,7 +159,7 @@ class DynamixelController(BaseController):
                 # Construct the command to set the latency timer on Linux
                 command = f"echo {latency_value} | sudo tee /sys/bus/usb-serial/devices/{self.config.port.split('/')[-1]}/latency_timer"
             elif os_type == "Darwin":
-                command = f"./toddlerbot/actuation/dynamixel/latency_timer_setter_macOS/set_latency_timer -l {latency_value}"
+                command = f"./toddlerbot/actuation/latency_timer_setter_macOS/set_latency_timer -l {latency_value}"
             else:
                 raise Exception()
 
