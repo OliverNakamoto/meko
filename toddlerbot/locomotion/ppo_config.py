@@ -15,8 +15,8 @@ import gin
 class PPOConfig:
     """Data class for storing PPO hyperparameters."""
 
-    wandb_project: str = "ToddlerBot"
-    wandb_entity: str = "toddlerbot"
+    wandb_project: str = "toddlerbot-training"
+    wandb_entity: str = "islandoliver"  # Changed from "oliverisland" to "islandoliver"
     policy_hidden_layer_sizes: Tuple[int, ...] = (512, 256, 128)
     value_hidden_layer_sizes: Tuple[int, ...] = (512, 256, 128)
     use_rnn: bool = False  # specifc to rsl_rl

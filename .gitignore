@@ -9,7 +9,7 @@ scripts/*.sh
 wandb/
 toddlerbot/descriptions/*/motors.yml
 toddlerbot/depth/models/
-
+motion/
 ### Python ###
 
 # Byte-compiled / optimized / DLL files

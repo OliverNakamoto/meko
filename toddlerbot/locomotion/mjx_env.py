@@ -342,6 +342,18 @@ class MJXEnv(PipelineEnv):
                 action_mask.append(self.arm_actuator_indices)
 
         self.action_mask = jnp.sort(jnp.concatenate(action_mask))
+
+        # Filter out ankle actuators (roll and pitch) from action mask
+        ankle_indices = jnp.array([
+            i for i, name in enumerate(self.robot.motor_ordering)
+            if "ankle_roll" in name or "ankle_pitch" in name
+        ])
+        # Remove ankle indices from action mask
+        self.action_mask = jnp.array([
+            idx for idx in self.action_mask
+            if idx not in ankle_indices
+        ])
+
         self.num_action = self.action_mask.shape[0]
 
         self.motor_limits = jnp.array(list(self.robot.motor_limits.values()))

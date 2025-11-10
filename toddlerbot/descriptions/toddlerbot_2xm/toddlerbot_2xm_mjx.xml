@@ -610,6 +610,12 @@
     <joint joint1="right_elbow_yaw_driven" joint2="right_elbow_yaw_drive" polycoef="0 -1.0 0 0 0"/>
     <joint joint1="right_wrist_pitch_driven" joint2="right_wrist_pitch_drive" polycoef="0 -1.0 0 0 0"/>
     <joint joint1="right_hip_yaw_driven" joint2="right_hip_yaw_drive" polycoef="0 -0.8571428571 0 0 0"/>
+    <!-- Lock ankle roll joints at home position (0.0) -->
+    <joint joint1="left_ankle_roll" polycoef="0 1 0 0 0" active="true"/>
+    <joint joint1="right_ankle_roll" polycoef="0 1 0 0 0" active="true"/>
+    <!-- Lock ankle pitch joints at home position -->
+    <joint joint1="left_ankle_pitch" polycoef="0 1 0 0 0" active="true"/>
+    <joint joint1="right_ankle_pitch" polycoef="0 1 0 0 0" active="true"/>
   </equality>
   <tendon>
     <fixed name="waist_roll_coupling" limited="true" range="-0.03 0.03">
