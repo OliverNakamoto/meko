@@ -25,6 +25,7 @@ from toddlerbot.locomotion.mjx_config import MJXConfig
 from toddlerbot.locomotion.ppo_config import PPOConfig
 from toddlerbot.reference.motion_ref import MotionReference
 from toddlerbot.sim.motor_control import MotorController
+from toddlerbot.sim.actuators import ActuatorFactory
 from toddlerbot.sim.robot import Robot
 from toddlerbot.sim.terrain.generate_terrain import (
     create_terrain_spec,
@@ -173,6 +174,33 @@ class MJXEnv(PipelineEnv):
         sys = sys.tree_replace(
             {"opt.timestep": cfg.sim.timestep, "opt.solver": cfg.sim.solver}
         )
+
+        # Override joint physics parameters for Feetech motors if needed
+        if robot.actuator_family == "feetech":
+            import jax.numpy as jnp
+
+            # Build new arrays with overridden values
+            new_armature = jnp.array(sys.dof_armature)
+            new_damping = jnp.array(sys.dof_damping)
+            new_frictionloss = jnp.array(sys.dof_frictionloss)
+
+            for i, motor_name in enumerate(robot.motor_ordering):
+                try:
+                    joint_id = support.name2id(sys, mujoco.mjtObj.mjOBJ_JOINT, motor_name)
+                    # Set per-motor physics parameters
+                    new_armature = new_armature.at[joint_id].set(robot.motor_armature[i])
+                    new_damping = new_damping.at[joint_id].set(robot.motor_damping[i])
+                    new_frictionloss = new_frictionloss.at[joint_id].set(robot.motor_frictionloss[i])
+                except KeyError:
+                    # Joint not found, skip
+                    pass
+
+            # Apply all overrides at once
+            sys = sys.tree_replace({
+                "dof_armature": new_armature,
+                "dof_damping": new_damping,
+                "dof_frictionloss": new_frictionloss,
+            })
 
         kwargs["n_frames"] = cfg.action.n_frames
         kwargs["backend"] = "mjx"
@@ -368,7 +396,12 @@ class MJXEnv(PipelineEnv):
         ]
         self.leg_pitch_joint_signs = jnp.array([-1, 1, -1, 1, -1, 1])
 
-        self.controller = MotorController(self.robot)
+        # Initialize actuator controller based on robot configuration
+        self.controller = ActuatorFactory.create(
+            actuator_family=self.robot.actuator_family,
+            params_dict={},  # Params are loaded from robot config
+            robot_config=self.robot
+        )
 
         # commands
         # x vel, y vel, yaw vel, heading
@@ -416,6 +449,16 @@ class MJXEnv(PipelineEnv):
         self.passive_active_ratio_range = (
             self.cfg.domain_rand.passive_active_ratio_range
         )
+
+        # Feetech domain randomization ranges
+        self.kt_range = self.cfg.domain_rand.kt_range
+        self.R_range = self.cfg.domain_rand.R_range
+        self.vin_range = self.cfg.domain_rand.vin_range
+        self.max_pwm_range = self.cfg.domain_rand.max_pwm_range
+        self.error_gain_range = self.cfg.domain_rand.error_gain_range
+        self.vmax_range = self.cfg.domain_rand.vmax_range
+        self.amax_range = self.cfg.domain_rand.amax_range
+        self.encoder_zero_offset_range = self.cfg.domain_rand.encoder_zero_offset_range
 
         self.add_push = self.cfg.domain_rand.add_push
         self.push_interval = numpy.ceil(self.cfg.domain_rand.push_interval_s / self.dt)
@@ -521,7 +564,15 @@ class MJXEnv(PipelineEnv):
             rng_kd_min,
             rng_tau_brake_max,
             rng_tau_q_dot_max,
-        ) = jax.random.split(rng, 16)
+            rng_kt,
+            rng_R,
+            rng_vin,
+            rng_max_pwm,
+            rng_error_gain,
+            rng_vmax,
+            rng_amax,
+            rng_encoder_offset,
+        ) = jax.random.split(rng, 24)
 
         state_info = {
             "rng": rng,
@@ -752,6 +803,12 @@ class MJXEnv(PipelineEnv):
         state_info["last_action_target"] = state_info["default_action"].copy()
         state_info["actuator_noise"] = {}
 
+        # Initialize planner state for Feetech actuators
+        initial_motor_positions = pipeline_state.q[self.q_start_idx + self.motor_indices]
+        state_info["planner_state"] = self.controller.init_planner_state(
+            self.nu, initial_motor_positions
+        )
+
         if self.add_domain_rand:
             state_info["backlash"] = jax.random.uniform(
                 rng_backlash,
@@ -814,6 +871,55 @@ class MJXEnv(PipelineEnv):
                     minval=self.passive_active_ratio_range[0],
                     maxval=self.passive_active_ratio_range[1],
                 ),
+                # Feetech parameters
+                "kt": jax.random.uniform(
+                    rng_kt,
+                    (self.nu,),
+                    minval=self.kt_range[0],
+                    maxval=self.kt_range[1],
+                ),
+                "R": jax.random.uniform(
+                    rng_R,
+                    (self.nu,),
+                    minval=self.R_range[0],
+                    maxval=self.R_range[1],
+                ),
+                "vin": jax.random.uniform(
+                    rng_vin,
+                    (self.nu,),
+                    minval=self.vin_range[0],
+                    maxval=self.vin_range[1],
+                ),
+                "max_pwm": jax.random.uniform(
+                    rng_max_pwm,
+                    (self.nu,),
+                    minval=self.max_pwm_range[0],
+                    maxval=self.max_pwm_range[1],
+                ),
+                "error_gain": jax.random.uniform(
+                    rng_error_gain,
+                    (self.nu,),
+                    minval=self.error_gain_range[0],
+                    maxval=self.error_gain_range[1],
+                ),
+                "vmax": jax.random.uniform(
+                    rng_vmax,
+                    (self.nu,),
+                    minval=self.vmax_range[0],
+                    maxval=self.vmax_range[1],
+                ),
+                "amax": jax.random.uniform(
+                    rng_amax,
+                    (self.nu,),
+                    minval=self.amax_range[0],
+                    maxval=self.amax_range[1],
+                ),
+                "encoder_zero_offset": jax.random.uniform(
+                    rng_encoder_offset,
+                    (self.nu,),
+                    minval=self.encoder_zero_offset_range[0],
+                    maxval=self.encoder_zero_offset_range[1],
+                ),
             }
 
         obs_history = jnp.zeros(self.num_obs_history * self.obs_size)
@@ -834,7 +940,7 @@ class MJXEnv(PipelineEnv):
 
         return State(pipeline_state, obs, reward, done, metrics, state_info)
 
-    def pipeline_step(self, state: State, action: jax.Array) -> base.State:
+    def pipeline_step(self, state: State, action: jax.Array) -> tuple[base.State, Any]:
         """Executes a pipeline step by applying a control action to the system state.
 
         This function iteratively applies a control action to the system's state over a specified number of frames. It uses a controller to compute control signals based on the current state and action, and updates the pipeline state accordingly.
@@ -844,23 +950,26 @@ class MJXEnv(PipelineEnv):
             action (jax.Array): The control action to be applied to the system.
 
         Returns:
-            base.State: The updated state of the system after applying the control action over the specified number of frames.
+            tuple: (pipeline_state, planner_state) - Updated pipeline state and planner state
         """
 
-        def f(pipeline_state, _):
-            ctrl = self.controller.step(
-                pipeline_state.q[self.q_start_idx + self.motor_indices],
-                pipeline_state.qd[self.qd_start_idx + self.motor_indices],
-                pipeline_state.qacc[self.qd_start_idx + self.motor_indices],
-                action,
-                state.info["actuator_noise"],
+        def f(carry, _):
+            pipeline_state, planner_state = carry
+            ctrl, new_planner_state = self.controller.step(
+                q=pipeline_state.q[self.q_start_idx + self.motor_indices],
+                q_dot=pipeline_state.qd[self.qd_start_idx + self.motor_indices],
+                action=action,
+                dt=self.dt,
+                planner_state=planner_state,
+                noise_dict=state.info["actuator_noise"],
             )
-            return (
-                self._pipeline.step(self.sys, pipeline_state, ctrl, self._debug),
-                None,
-            )
+            new_pipeline_state = self._pipeline.step(self.sys, pipeline_state, ctrl, self._debug)
+            return (new_pipeline_state, new_planner_state), None
 
-        return jax.lax.scan(f, state.pipeline_state, (), self._n_frames)[0]
+        initial_carry = (state.pipeline_state, state.info.get("planner_state", None))
+        (final_pipeline_state, final_planner_state), _ = jax.lax.scan(f, initial_carry, (), self._n_frames)
+
+        return final_pipeline_state, final_planner_state
 
     # @profile()
     def step(self, state: State, action: jax.Array) -> State:
@@ -1008,7 +1117,8 @@ class MJXEnv(PipelineEnv):
             motor_target, self.motor_limits[:, 0], self.motor_limits[:, 1]
         )
 
-        pipeline_state = self.pipeline_step(state, motor_target)
+        pipeline_state, planner_state = self.pipeline_step(state, motor_target)
+        state.info["planner_state"] = planner_state
 
         if not self.fixed_base:
             (

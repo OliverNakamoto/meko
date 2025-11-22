@@ -194,6 +194,17 @@ class MJXConfig:
         passive_active_ratio_range: List[float] = field(
             default_factory=lambda: [0.5, 1.5]
         )
+        # Feetech-specific domain randomization parameters
+        kt_range: List[float] = field(default_factory=lambda: [0.9, 1.1])
+        R_range: List[float] = field(default_factory=lambda: [0.9, 1.1])
+        vin_range: List[float] = field(default_factory=lambda: [0.95, 1.05])
+        max_pwm_range: List[float] = field(default_factory=lambda: [0.95, 1.05])
+        error_gain_range: List[float] = field(default_factory=lambda: [0.9, 1.1])
+        vmax_range: List[float] = field(default_factory=lambda: [0.8, 1.2])
+        amax_range: List[float] = field(default_factory=lambda: [0.8, 1.2])
+        encoder_zero_offset_range: List[float] = field(
+            default_factory=lambda: [-0.035, 0.035]  # ±2 degrees in radians
+        )
         push_interval_s: float = 2.0  # seconds
         push_duration_s: float = 0.2  # seconds
         push_torso_range: List[float] = field(default_factory=lambda: [1.0, 3.0])

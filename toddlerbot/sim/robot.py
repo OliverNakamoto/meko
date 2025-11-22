@@ -126,6 +126,7 @@ class Robot:
             )
 
         self.passive_active_ratio = self.config["actuators"]["passive_active_ratio"]
+        self.actuator_family = self.config["actuators"].get("actuator_family", "dynamixel")
         self.cur_sensor_mask = [
             1 if model.startswith("XM430") or model.startswith("XC330") else 0
             for model in self.motor_models
@@ -164,6 +165,7 @@ class Robot:
             dtype=np.float32,
         )
 
+        # Load Dynamixel parameters
         self.motor_tau_max = []
         self.motor_q_dot_max = []
         self.motor_tau_q_dot_max = []
@@ -172,16 +174,48 @@ class Robot:
         self.motor_kd_min = []
         self.motor_ki = []
         self.motor_bi = []
+
+        # Load Feetech parameters
+        self.motor_kt = []
+        self.motor_R = []
+        self.motor_vin = []
+        self.motor_max_pwm = []
+        self.motor_error_gain = []
+        self.motor_vmax = []
+        self.motor_amax = []
+        self.motor_encoder_resolution_deg = []
+        # Common physics parameters
+        self.motor_armature = []
+        self.motor_damping = []
+        self.motor_frictionloss = []
+
         for model_name in self.motor_models:
             motor_model = self.config["actuators"][model_name]
-            self.motor_tau_max.append(motor_model["tau_max"])
-            self.motor_q_dot_max.append(motor_model["q_dot_max"])
-            self.motor_tau_q_dot_max.append(motor_model["tau_q_dot_max"])
-            self.motor_q_dot_tau_max.append(motor_model["q_dot_tau_max"])
-            self.motor_tau_brake_max.append(motor_model["tau_brake_max"])
-            self.motor_kd_min.append(motor_model["kd_min"])
-            self.motor_ki.append(motor_model["ki"])
-            self.motor_bi.append(motor_model["bi"])
+
+            # Dynamixel parameters (may not exist for Feetech motors)
+            self.motor_tau_max.append(motor_model.get("tau_max", 0.0))
+            self.motor_q_dot_max.append(motor_model.get("q_dot_max", 0.0))
+            self.motor_tau_q_dot_max.append(motor_model.get("tau_q_dot_max", 0.0))
+            self.motor_q_dot_tau_max.append(motor_model.get("q_dot_tau_max", 0.0))
+            self.motor_tau_brake_max.append(motor_model.get("tau_brake_max", 0.0))
+            self.motor_kd_min.append(motor_model.get("kd_min", 0.0))
+            self.motor_ki.append(motor_model.get("ki", 0.0))
+            self.motor_bi.append(motor_model.get("bi", 0.0))
+
+            # Feetech parameters (may not exist for Dynamixel motors)
+            self.motor_kt.append(motor_model.get("kt", 0.0))
+            self.motor_R.append(motor_model.get("R", 1.0))  # Default to 1.0 to avoid div by zero
+            self.motor_vin.append(motor_model.get("vin", 0.0))
+            self.motor_max_pwm.append(motor_model.get("max_pwm", 1.0))
+            self.motor_error_gain.append(motor_model.get("error_gain", 1.0))
+            self.motor_vmax.append(motor_model.get("vmax", 2.0))
+            self.motor_amax.append(motor_model.get("amax", 17.45))
+            self.motor_encoder_resolution_deg.append(motor_model.get("encoder_resolution_deg", 0.087))
+
+            # Common physics parameters (both Dynamixel and Feetech)
+            self.motor_armature.append(motor_model.get("armature", 0.0))
+            self.motor_damping.append(motor_model.get("damping", 0.0))
+            self.motor_frictionloss.append(motor_model.get("frictionloss", 0.0))
 
         self.default_joint_angles = self.motor_to_joint_angles(
             self.default_motor_angles

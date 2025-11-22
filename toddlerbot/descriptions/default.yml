@@ -235,6 +235,7 @@ motors:
         kd: 0.0
 
 actuators:
+    actuator_family: dynamixel  # "dynamixel" or "feetech"
     kp_ratio: 150.0
     kd_ratio: 16.0
     passive_active_ratio: 3.0
@@ -310,6 +311,45 @@ actuators:
         kd_min: 0.185
         ki: 1.067
         bi: 0.062
+
+    # Feetech motor types (STS series)
+    feetech_sts3250:
+        # System-identified electrical parameters
+        kt: 1.0005874626213263  # N·m/A - torque constant
+        R: 1.3890462492623645   # Ω - resistance
+        vin: 12.1               # V - supply voltage
+        max_pwm: 0.97           # duty cycle [0,1]
+        error_gain: 0.16293639  # dimensionless - applied to Kp only
+        # MuJoCo physics parameters
+        armature: 0.04          # kg·m²
+        damping: 1.3464038511725651  # N·m·s/rad
+        frictionloss: 0.19999504581400715  # N·m
+        # Performance limits
+        max_torque: 8.716130441407099  # N·m
+        max_velocity: 8.93762009169868  # rad/s
+        # Planner parameters
+        vmax: 2.0               # rad/s - planner velocity limit
+        amax: 17.45             # rad/s² - planner acceleration limit
+        encoder_resolution_deg: 0.087  # degrees per encoder step
+
+    feetech_sts3215_12v:
+        # System-identified electrical parameters
+        kt: 1.0000000244338463  # N·m/A
+        R: 2.2136477795617733   # Ω
+        vin: 12.1               # V
+        max_pwm: 0.9964         # duty cycle [0,1]
+        error_gain: 0.16292703  # dimensionless
+        # MuJoCo physics parameters
+        armature: 0.04          # kg·m²
+        damping: 1.2305092028680242  # N·m·s/rad
+        frictionloss: 0.16197241014297026  # N·m
+        # Performance limits
+        max_torque: 5.466091040935576  # N·m
+        max_velocity: 4.855763772519988  # rad/s
+        # Planner parameters
+        vmax: 2.0               # rad/s
+        amax: 17.45             # rad/s²
+        encoder_resolution_deg: 0.087  # degrees
 
 joints:
     waist_roll:
